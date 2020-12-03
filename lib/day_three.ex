@@ -10,32 +10,37 @@ defmodule Aoc.DayThree do
     max_r = Enum.count(lines)
     max_c = String.length(Enum.at(lines, 0))
 
-
-    counter(matrix, matrix[0][0], 0, 0, 0, max_r, max_c)
-
-    # for r <- 0..max_r do
-    #   case matrix[r][0] do
-    #     "." -> 0
-    #     "#" -> 1
-    #   end
-    # end
-
-  end
-
-  defp counter(mat, ".", r, c, sum, max_r, max_c) when r < max_r do
-    counter(mat, mat[r + 1][rem(c + 3, max_c)], r + 1, c + 3, sum, max_r, max_c)
-  end
-
-  defp counter(mat, "#", r, c, sum, max_r, max_c) when r < max_r do
-    counter(mat, mat[r + 1][rem(c + 3, max_c)], r + 1, c + 3, sum + 1, max_r, max_c)
-  end
-
-  defp counter(_mat, _s, _r, _c, sum, _max_r, _max_c) do
-    sum
+    do_count(matrix, 0, 0, 0, max_r, max_c, 1, 3)
   end
 
   def part_two(file_path) do
+    lines = get_input_list(file_path)
 
+    matrix = lines
+    |> Enum.map(fn l -> String.graphemes(l) end)
+    |> Matrix.from_list()
+
+    max_r = Enum.count(lines)
+    max_c = String.length(Enum.at(lines, 0))
+
+    c1 = do_count(matrix, 0, 0, 0, max_r, max_c, 1, 1)
+    c2 = do_count(matrix, 0, 0, 0, max_r, max_c, 1, 3)
+    c3 = do_count(matrix, 0, 0, 0, max_r, max_c, 1, 5)
+    c4 = do_count(matrix, 0, 0, 0, max_r, max_c, 1, 7)
+    c5 = do_count(matrix, 0, 0, 0, max_r, max_c, 2, 1)
+
+    c1 * c2 * c3 * c4 * c5
+  end
+
+  defp do_count(mat, r, c, sum, max_r, max_c, dr, dc) when r < max_r do
+    case mat[r][c] do
+      "." -> do_count(mat, r + dr, rem(c + dc, max_c), sum, max_r, max_c, dr, dc)
+      "#" -> do_count(mat, r + dr, rem(c + dc, max_c), sum + 1, max_r, max_c, dr, dc)
+    end
+  end
+
+  defp do_count(_mat, _r, _c, sum, _max_r, _max_c, _, _) do
+    sum
   end
 
 
