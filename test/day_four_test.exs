@@ -17,4 +17,25 @@ defmodule Aoc.DayFourTest do
     assert result == 237
   end
 
+  test "part two (fake)(valid)" do
+    input = Path.absname("./test/fake_inputs/day_four_p2_valid.txt")
+    result = Aoc.DayFour.part_two(input)
+
+    assert result == 4
+  end
+
+  test "part two (fake)(not valid)" do
+    input = Path.absname("./test/fake_inputs/day_four_p2_not_valid.txt")
+    result = Aoc.DayFour.part_two(input)
+
+    assert result == 0
+  end
+
+  test "part two" do
+    input = Path.absname(@real_input)
+    result = Aoc.DayFour.part_two(input)
+
+    assert result == 172
+  end
+
 end
