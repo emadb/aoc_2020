@@ -25,7 +25,14 @@ defmodule Aoc.DayFiveTest do
     input = Path.absname(@real_input)
     result = Aoc.DayFive.part_one(input)
 
-    assert result == 820
+    assert result == 871
+  end
+
+  test "part two" do
+    input = Path.absname(@real_input)
+    result = Aoc.DayFive.part_two(input)
+
+    assert result == 640
   end
 
 end
