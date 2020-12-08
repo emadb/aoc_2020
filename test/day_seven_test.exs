@@ -33,4 +33,25 @@ defmodule Aoc.DaySevenTest do
     assert result == 226
   end
 
+  test "part two (fake)" do
+    input = Path.absname(@fake_input)
+    result = Aoc.DaySeven.part_two(input, "shiny gold")
+
+    assert result == 32
+  end
+
+  test "part two 2(fake)" do
+    input = Path.absname("./test/fake_inputs/day_seven_p2.txt")
+    result = Aoc.DaySeven.part_two(input, "shiny gold")
+
+    assert result == 126
+  end
+
+  test "part two" do
+    input = Path.absname(@real_input)
+    result = Aoc.DaySeven.part_two(input, "shiny gold")
+
+    assert result == 9569
+  end
+
 end

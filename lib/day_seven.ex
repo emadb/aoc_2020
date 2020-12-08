@@ -11,6 +11,27 @@ defmodule Aoc.DaySeven do
     |> Enum.count()
   end
 
+  def part_two(file_path, color) do
+    bags = file_path
+    |> get_input_list()
+    |> Enum.map(&parse_line/1)
+
+    find_contents(bags, color) - 1
+
+  end
+
+  defp find_contents(bags, color) do
+    {_, content} = Enum.find(bags, fn {c, _} -> c == color end)
+
+    case content do
+      [] -> 1
+      _ ->
+        Enum.reduce(content, 1, fn ({color, qty}, a) ->
+          a + qty * find_contents(bags, color)
+        end)
+    end
+  end
+
   defp find_containers(bags, colors, list) do
     Enum.map(colors, fn x ->
       containers = do_find_containers(bags, x, [])
