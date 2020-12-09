@@ -15,4 +15,18 @@ defmodule Aoc.DayNineTest do
     result = Aoc.DayNine.part_one(25, input)
     assert result == 41682220
   end
+
+  test "part two (fake)" do
+    input = Path.absname(@fake_input)
+    result = Aoc.DayNine.part_two(127, input)
+
+    assert result == 62
+  end
+
+  test "part two" do
+    input = Path.absname(@real_input)
+    result = Aoc.DayNine.part_two(41682220, input)
+
+    assert result == 5388976
+  end
 end
