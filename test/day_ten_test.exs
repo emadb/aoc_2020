@@ -23,4 +23,27 @@ defmodule Aoc.DayTenTest do
 
     assert result == 2590
   end
+
+  test "part two (fake)" do
+    input = Path.absname(@fake_input)
+    result = Aoc.DayTen.part_two(input)
+
+    assert result == 8
+  end
+
+  test "part two 2 (fake)" do
+    input = Path.absname("./test/fake_inputs/day_ten2.txt")
+    result = Aoc.DayTen.part_two(input)
+
+    assert result == 19208
+  end
+
+  @tag timeout: :infinity
+  test "part two" do
+    input = Path.absname(@real_input)
+    result = Aoc.DayTen.part_two(input)
+
+    assert result == 226775649501184
+
+  end
 end
