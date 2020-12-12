@@ -8,7 +8,6 @@ defmodule Aoc.DayTwelve do
     |> Enum.map(&parse_command/1)
 
     {x, y, _} = execute_commands(cmds, {0,0, 90})
-    IO.inspect {x, y}, label: "XY"
     abs(x) + abs(y)
   end
 
