@@ -19,11 +19,15 @@ defmodule Aoc.DayTwelveTest do
 
   test "part two (fake)" do
     input = Path.absname(@fake_input)
-    result = Aoc.DayTwelve.part_two(input)
+    result = Aoc.DayTwelve2.part_two(input)
 
     assert result == 286
   end
 
+  test "part two" do
+    input = Path.absname(@real_input)
+    result = Aoc.DayTwelve2.part_two(input)
 
-
+    assert result == 22848
+  end
 end
