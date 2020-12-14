@@ -17,4 +17,19 @@ defmodule Aoc.DayThirteenTest do
     assert result == 2935
   end
 
+  @tag timeout: :infinity
+  test "part two (fake)" do
+    input = Path.absname(@fake_input)
+    result = Aoc.DayThirteen.part_two(input)
+
+    assert result == 1068781
+  end
+
+  test "part two" do
+    input = Path.absname(@real_input)
+    result = Aoc.DayThirteen.part_two(input)
+
+    assert result == 836024966345345
+  end
+
 end

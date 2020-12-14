@@ -11,6 +11,37 @@ defmodule Aoc.DayThirteen do
     (ts - timestamp) * id
   end
 
+  def part_two(file_path) do
+    file_path
+    |> get_buses()
+    |> Enum.reduce(fn {bus, offset}, {an, ao} ->
+      n = find_t({bus, reminder(bus, offset)}, {an, ao})
+      {an * bus, n * an + ao}
+    end)
+    |> elem(1)
+  end
+
+  def reminder(bus, offset), do: rem(bus * offset - offset, bus)
+
+  def find_t(cur, acc) do
+    Enum.find(Stream.iterate(1, fn x -> x + 1 end), fn x -> match?(x, cur, acc) end)
+  end
+
+  def match?(x, {bus, reminder}, {an, ao}), do: rem(an * x + ao, bus) == reminder
+
+  defp get_buses(file_path) do
+    list = file_path
+    |> File.read!()
+    |> String.split("\n")
+
+    Enum.at(list, 1)
+    |> String.split(",")
+    |> Enum.with_index()
+    |> Enum.reject(fn {id, _} -> id == "x" end)
+    |> Enum.map(fn {id, index} -> {String.to_integer(id), index} end)
+
+  end
+
   defp get_next(bus, timestamp) do
     do_get_next(bus, timestamp, 0, 1)
   end
