@@ -15,6 +15,19 @@ defmodule Aoc.DayFourteenTest do
     result = Aoc.DayFourteen.part_one(input)
 
     assert result == 7611244640053
+  end
 
+  test "part two (fake)" do
+    input = Path.absname("./test/fake_inputs/day_fourteen_p2.txt")
+    result = Aoc.DayFourteen.part_two(input)
+
+    assert result == 208
+  end
+
+  test "part two" do
+    input = Path.absname(@real_input)
+    result = Aoc.DayFourteen.part_two(input)
+
+    assert result == 208
   end
 end
