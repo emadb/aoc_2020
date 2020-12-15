@@ -25,22 +25,18 @@ defmodule Aoc.DayFourteen do
     new_state = case parse_cmd(cmd) do
       {:mask, value} -> %{state | mask: value}
       {:mem, addr, value} ->
-        new_value = get_new_value_decoder(value, state.mask)
         addresses = get_addresses(addr, state.mask)
 
         Enum.reduce(addresses, state, fn a, state ->
           mem_addr = Integer.undigits(a, 2) |> to_string()
-          %{state | mem: Map.put(state.mem, mem_addr, new_value)}
+          %{state | mem: Map.put(state.mem, mem_addr, value)}
         end)
-
     end
 
     execute_commands_decoder(rest, new_state)
   end
 
-  defp execute_commands_decoder([], state) do
-    state
-  end
+  defp execute_commands_decoder([], state), do: state
 
   defp get_addresses(addr, mask) do
     addr
@@ -69,18 +65,6 @@ defmodule Aoc.DayFourteen do
   end
   def float_address([]), do: [[]]
 
-  defp get_new_value_decoder(value, mask) do
-    value
-    |> Enum.with_index()
-    |> Enum.map(fn {v, i} ->
-      case Enum.at(mask, i) do
-        "X" -> v
-        mv -> v
-      end
-    end)
-  end
-
-
   defp get_new_value(value, mask) do
     value
     |> Enum.with_index()
@@ -99,13 +83,10 @@ defmodule Aoc.DayFourteen do
         new_value = get_new_value(value, state.mask)
         %{state | mem: Map.put(state.mem, addr, new_value)}
     end
-
     execute_commands(rest, new_state)
   end
 
-  defp execute_commands([], state) do
-    state
-  end
+  defp execute_commands([], state), do: state
 
   defp parse_cmd("mask = " <> <<mask :: binary-size(36)>>), do: {:mask, parse_mask(mask)}
   defp parse_cmd(cmd) do

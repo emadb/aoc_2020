@@ -28,6 +28,6 @@ defmodule Aoc.DayFourteenTest do
     input = Path.absname(@real_input)
     result = Aoc.DayFourteen.part_two(input)
 
-    assert result == 208
+    assert result == 3705162613854
   end
 end
