@@ -10,11 +10,26 @@ defmodule Aoc.DaySeventeenTest do
     assert result == 112
   end
 
-
   test "part one" do
     input = Path.absname(@real_input)
     result = Aoc.DaySeventeen.part_one(input)
 
     assert result == 298
   end
+
+  test "part two (fake)" do
+    input = Path.absname(@fake_input)
+    result = Aoc.DaySeventeenP2.part_two(input)
+
+    assert result == 848
+  end
+
+  @tag timeout: :infinity
+  test "part two" do
+    input = Path.absname(@real_input)
+    result = Aoc.DaySeventeenP2.part_two(input)
+
+    assert result == 848
+  end
+
 end
