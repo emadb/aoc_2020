@@ -67,3 +67,25 @@ defmodule Aoc.DayEighteen do
 
   end
 end
+
+defmodule MyOp do
+  import Kernel, except: [++: 2]
+  def a ++ b, do: a * b
+end
+
+defmodule Aoc.Day18p2 do
+  import Kernel, except: [++: 2]
+  import MyOp
+
+  def calc(file_path) do
+    file_path
+    |> File.read!()
+    |> String.split("\n")
+    |> Enum.reduce(0, fn exp, acc ->
+      {res, _} = exp
+      |> String.replace("*", "++")
+      |> Code.eval_string([], __ENV__)
+      acc + res
+    end)
+  end
+end

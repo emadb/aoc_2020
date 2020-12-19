@@ -46,4 +46,9 @@ defmodule Aoc.DayEighteenTest do
 
     assert result == 51
   end
+
+  # test "part two calc 1" do
+  #   result = Aoc.Day18p2.calc(@real_input)
+  #   assert result == 231
+  # end
 end
