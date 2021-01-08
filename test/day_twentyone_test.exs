@@ -16,4 +16,12 @@ defmodule Aoc.DayTwentyoneTest do
 
     assert result == 2627
   end
+
+  test "part two (fake)" do
+    input = Path.absname(@fake_input)
+    result = Aoc.DayTwentyone.part_two(input)
+    assert result == "mxmxvkd,sqjhc,fvjkl"
+  end
+
+
 end
