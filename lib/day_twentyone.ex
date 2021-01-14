@@ -24,26 +24,44 @@ defmodule Aoc.DayTwentyone do
     end)
   end
 
-  defp part_two(file_path) do
-    data = file_path
-      |> get_input_list()
-      |> Enum.map(&build_struct/1)
+  def part_two(file_path) do
+    file_path
+    |> get_input_list()
+    |> Enum.map(&build_struct/1)
+    |> Enum.map(&candidates/1)
+    |> Enum.reduce(&merge/2)
+    |> eliminate()
+    |> couple()
+    |> Enum.sort(fn {a1, _}, {a2, _} -> a1 <= a2 end)
+    |> Enum.map(fn {_, f} -> f end)
+    |> Enum.uniq()
+    |> Enum.join(",")
+  end
 
-    food_with_allergens = data
-      |> Enum.map(&candidates/1)
-      |> Enum.reduce(&merge/2)
-      |> Map.values()
-      |> Enum.reduce(&MapSet.union/2)
+  def eliminate(map, eliminated \\ MapSet.new()) do
+    {lst, eliminated} =
+      Enum.map_reduce(map, eliminated, fn {k, options}, eliminated ->
+        if MapSet.size(options) == 1 do
+          {{k, options}, MapSet.union(eliminated, options)}
+        else
+          {{k, MapSet.difference(options, eliminated)}, eliminated}
+        end
+      end)
 
-    safe_food = data
-    |> Enum.flat_map(fn {a, _} -> a end)
-    |> Enum.reduce([], fn x, acc ->
-      if x in food_with_allergens do
-        acc
-      else
-        acc ++ [x]
-      end
+    if Enum.all?(lst, fn {_, v} -> MapSet.size(v) == 1 end) do
+      Map.new(lst)
+    else
+      eliminate(lst, eliminated)
+    end
+  end
+
+
+  defp couple(map) do
+    Map.keys(map)
+    |> Enum.flat_map(fn k ->
+      Enum.map(map[k], fn v -> {k, v} end)
     end)
+
   end
 
   defp build_struct(line) do

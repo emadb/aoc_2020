@@ -23,5 +23,11 @@ defmodule Aoc.DayTwentyoneTest do
     assert result == "mxmxvkd,sqjhc,fvjkl"
   end
 
+  test "part two" do
+    input = Path.absname(@real_input)
+    result = Aoc.DayTwentyone.part_two(input)
+    assert result == "hn,dgsdtj,kpksf,sjcvsr,bstzgn,kmmqmv,vkdxfj,bsfqgb"
+  end
+
 
 end
